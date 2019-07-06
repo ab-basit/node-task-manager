@@ -69,11 +69,10 @@ router.patch('/users/me', auth, async (req, res) => {
 
 router.delete('/users/me', auth, async (req, res) => {
     try {
-        await User.deleteOne(req.user);
+        await req.user.remove();
         res.send(req.user);
     } catch (e) {
-        console.log(e);
-        res.status(500).send();
+        res.status(500).send(e.message);
     }
 })
 
